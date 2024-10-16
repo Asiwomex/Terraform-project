@@ -1,8 +1,9 @@
+# Configure the AWS Provider
 provider "aws" {
   region = "us-east-2" # Change to your desired AWS region
 }
 
-# Call vpc
+# Call VPC
 module "vpc" {
   source              = "../../modules/vpc"
   vpc_cidr            = "10.0.0.0/16"
@@ -13,13 +14,25 @@ module "vpc" {
   enable_flow_logs    = false
 }
 
+# Call the Security Group module
+module "security_group" {
+  source             = "../../modules/security_group"
+  vpc_id             = module.vpc.vpc_id
+  security_group_name = "dev-security-group"
+  environment        = var.environment  # Pass the environment variable
+  ssh_cidr_blocks    = ["0.0.0.0/0"]   # Adjust based on your security requirements
+  http_cidr_blocks   = ["0.0.0.0/0"]
+  https_cidr_blocks  = ["0.0.0.0/0"]
+  data_ports_cidr_blocks = ["0.0.0.0/0"]
+}
+
 # Call EC2
 module "ubuntu_instance" {
   source           = "../../modules/ec2"
   ami              = "ami-0ea3c35c5c3284d82" # Replace with a valid Ubuntu LTS AMI ID
   instance_type    = "t2.micro"
   subnet_id        = module.vpc.public_subnet_ids[0]
-  security_groups  = [module.vpc.security_group_id] # Reference the security group from the vpc module
+  security_groups  = [module.security_group.security_group_id] # Reference the security group from the security_group module
   instance_name    = "dev-ubuntu-instance"
 }
 
@@ -36,7 +49,7 @@ module "alb" {
   source = "../../modules/load_balancer/alb"
 
   alb_name                  = "my-alb"
-  security_groups           = [module.vpc.security_group_id] # Use the security group from the vpc module
+  security_groups           = [module.security_group.security_group_id] # Use the security group from the security_group module
   subnets                   = module.vpc.public_subnet_ids # Use public subnets created by the vpc module
   enable_deletion_protection = true
   environment               = "dev" # Directly using the value for simplicity
@@ -58,7 +71,7 @@ module "nlb" {
   source = "../../modules/load_balancer/nlb"
 
   nlb_name                  = "my-nlb"
-  security_groups           = [module.vpc.security_group_id] # Use the security group from the vpc module
+  security_groups           = [module.security_group.security_group_id] # Use the security group from the security_group module
   subnets                   = module.vpc.public_subnet_ids # Use public subnets created by the vpc module
   enable_deletion_protection = true
   environment               = "dev" # Directly using the value for simplicity
@@ -74,3 +87,6 @@ module "nlb" {
   listener_port             = 80  # Specify the listener port
   listener_protocol         = "TCP"  # Specify the listener protocol
 }
+
+
+

@@ -4,7 +4,7 @@ variable "vpc_id" {
 }
 
 variable "environment" {
-  description = "The environment (e.g., dev, prod)"
+  description = "The environment for the deployment (e.g., dev, prod)"
   type        = string
-  default     = "dev"  # or set it according to your needs
+  default     = "dev"  # Change as needed
 }
