@@ -88,23 +88,23 @@ module "nlb" {
   listener_protocol         = "TCP"  # Specify the listener protocol
 }
 
-# # Call the Autoscaling module
-# module "autoscaling" {
-#   source              = "../../modules/autoscaling"
-#   environment         = "dev"
-#   ami                 = "ami-0ea3c35c5c3284d82" # Replace with a valid Ubuntu LTS AMI ID
-#   instance_type       = "t2.micro"
-#   security_group_id   = module.security_group.security_group_id
-#   subnet_ids          = module.vpc.private_subnet_ids
-#   vpc_id              = module.vpc.vpc_id    # Correctly referencing the VPC ID output
-#   min_size            = 1
-#   max_size            = 3
-#   desired_capacity    = 1
-#   health_check_grace_period = 300
-#   termination_policies = ["OldestInstance"]
-#   scale_up_adjustment = 1
-#   scale_down_adjustment = -1
-#   cooldown            = 300
-# }
+# Call the Autoscaling module
+module "autoscaling" {
+  source              = "../../modules/autoscaling"
+  environment         = "dev"
+  ami                 = "ami-0ea3c35c5c3284d82" # Replace with a valid Ubuntu LTS AMI ID
+  instance_type       = "t2.micro"
+  security_group_id   = module.security_group.security_group_id
+  subnet_ids          = module.vpc.private_subnet_ids
+  vpc_id              = module.vpc.vpc_id    # Correctly referencing the VPC ID output
+  min_size            = 1
+  max_size            = 3
+  desired_capacity    = 1
+  health_check_grace_period = 300
+  termination_policies = ["OldestInstance"]
+  scale_up_adjustment = 1
+  scale_down_adjustment = -1
+  cooldown            = 300
+}
 
 
