@@ -24,3 +24,6 @@ output "nat_gateway_ips" {
   description = "List of NAT Gateway public IPs"
   value       = aws_eip.nat[*].public_ip
 }
+
+
+

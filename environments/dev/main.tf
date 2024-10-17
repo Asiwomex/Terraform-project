@@ -7,7 +7,7 @@ provider "aws" {
 module "vpc" {
   source              = "../../modules/vpc"
   vpc_cidr            = "10.0.0.0/16"
-  environment         = "dev"
+  environment         = var.environment
   public_subnet_cidrs = ["10.0.1.0/24"]
   private_subnet_cidrs = ["10.0.2.0/24"]
   availability_zones  = ["us-east-2a", "us-east-2b"] # Adjust based on your region
@@ -16,10 +16,10 @@ module "vpc" {
 
 # Call the Security Group module
 module "security_group" {
-  source             = "../../modules/security_group"
-  vpc_id             = module.vpc.vpc_id
+  source              = "../../modules/security_group"
+  vpc_id             = module.vpc.vpc_id  # Reference the VPC ID from the VPC module
   security_group_name = "dev-security-group"
-  environment        = var.environment  # Pass the environment variable
+  environment        = var.environment
   ssh_cidr_blocks    = ["0.0.0.0/0"]   # Adjust based on your security requirements
   http_cidr_blocks   = ["0.0.0.0/0"]
   https_cidr_blocks  = ["0.0.0.0/0"]
@@ -88,22 +88,23 @@ module "nlb" {
   listener_protocol         = "TCP"  # Specify the listener protocol
 }
 
-# Call the Auto Scaling module
-module "autoscaling" {
-  source              = "../../modules/autoscaling"
-  environment         = "dev"
-  ami                 = "ami-0ea3c35c5c3284d82" # Replace with a valid Ubuntu LTS AMI ID
-  instance_type       = "t2.micro"
-  security_group_id   = module.security_group.security_group_id
-  subnet_ids          = module.vpc.private_subnet_ids
-  min_size            = 1
-  max_size            = 3
-  desired_capacity    = 1
-  health_check_grace_period = 300
-  termination_policies = ["OldestInstance"]
-  scale_up_adjustment = 1
-  scale_down_adjustment = -1
-  cooldown            = 300
-}
+# # Call the Autoscaling module
+# module "autoscaling" {
+#   source              = "../../modules/autoscaling"
+#   environment         = "dev"
+#   ami                 = "ami-0ea3c35c5c3284d82" # Replace with a valid Ubuntu LTS AMI ID
+#   instance_type       = "t2.micro"
+#   security_group_id   = module.security_group.security_group_id
+#   subnet_ids          = module.vpc.private_subnet_ids
+#   vpc_id              = module.vpc.vpc_id    # Correctly referencing the VPC ID output
+#   min_size            = 1
+#   max_size            = 3
+#   desired_capacity    = 1
+#   health_check_grace_period = 300
+#   termination_policies = ["OldestInstance"]
+#   scale_up_adjustment = 1
+#   scale_down_adjustment = -1
+#   cooldown            = 300
+# }
 
 
