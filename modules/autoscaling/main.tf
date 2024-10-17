@@ -21,18 +21,17 @@ resource "aws_autoscaling_group" "asg" {
   force_delete                = true
   termination_policies        = var.termination_policies
 
-  tags = [
-    {
-      key                 = "Name"
-      value               = "${var.environment}-asg"
-      propagate_at_launch = true
-    },
-    {
-      key                 = "Environment"
-      value               = var.environment
-      propagate_at_launch = true
-    }
-  ]
+  tag {
+    key                 = "Name"
+    value               = "${var.environment}-asg"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Environment"
+    value               = var.environment
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_autoscaling_policy" "scale_up" {
