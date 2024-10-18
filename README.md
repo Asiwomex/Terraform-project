@@ -8,6 +8,7 @@ This project, `terraform-project`, is designed to manage and deploy infrastructu
 
 ## Project Structure
 
+The project structure is exactly as seen in the project, haha, funny
 terraform-project/
 │
 ├── environments/
@@ -45,7 +46,6 @@ terraform-project/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf
-
 
 ## Environments
 
