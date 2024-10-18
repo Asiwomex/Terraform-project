@@ -1,7 +1,6 @@
 # Terraform-project
 
-
-This project, `terraform-project`, is designed to manage and deploy infrastructure using Terraform. The project is organized into environments and modules, making it reusable, maintainable, and scalable. Below is the structure and description of each component in the project.
+This project, `terraform-project`, is designed to manage and deploy infrastructure to AWS using Terraform. The project is organized into environments and modules, making it reusable, maintainable, and scalable. Below is the structure and description of each component in the project.
 
 ## Project Structure
 
