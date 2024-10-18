@@ -1,18 +1,13 @@
 # Terraform-project
-Terraform projects
-test 1
-test 2
 
-Here's the `README.md` file for your project:
 
-```markdown
+
 # Terraform Project
 
 This project, `terraform-project`, is designed to manage and deploy infrastructure using Terraform. The project is organized into environments and modules, making it reusable, maintainable, and scalable. Below is the structure and description of each component in the project.
 
 ## Project Structure
 
-```
 terraform-project/
 │
 ├── environments/
@@ -50,7 +45,7 @@ terraform-project/
         ├── main.tf
         ├── variables.tf
         └── outputs.tf
-```
+
 
 ## Environments
 
