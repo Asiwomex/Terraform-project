@@ -1,51 +1,28 @@
 # Terraform-project
 
 
-
-# Terraform Project
-
 This project, `terraform-project`, is designed to manage and deploy infrastructure using Terraform. The project is organized into environments and modules, making it reusable, maintainable, and scalable. Below is the structure and description of each component in the project.
 
 ## Project Structure
 
 The project structure is exactly as seen in the project, haha, funny
+
 terraform-project/
-│
 ├── environments/
-│   └── dev/
-│       ├── main.tf
-│       └── variables.tf
-│
+│   └── dev/
+│       ├── main.tf
+│       └── variables.tf
 └── modules/
-    ├── autoscaling/
-    │   ├── main.tf
-    │   ├── variables.tf
-    │   └── outputs.tf
-    ├── ec2/
-    │   ├── main.tf
-    │   ├── variables.tf
-    │   └── outputs.tf
-    ├── load_balancer/
-    │   ├── alb/
-    │   │   ├── main.tf
-    │   │   ├── variables.tf
-    │   │   └── outputs.tf
-    │   └── nlb/
-    │       ├── main.tf
-    │       ├── variables.tf
-    │       └── outputs.tf
-    ├── s3/
-    │   ├── main.tf
-    │   ├── variables.tf
-    │   └── outputs.tf
-    ├── security_groups/
-    │   ├── main.tf
-    │   ├── variables.tf
-    │   └── outputs.tf
-    └── vpc/
-        ├── main.tf
-        ├── variables.tf
-        └── outputs.tf
+    ├── autoscaling/
+    ├── ec2/
+    ├── load_balancer/
+    │   ├── alb/
+    │   └── nlb/
+    ├── s3/
+    ├── security_groups/
+    └── vpc/
+
+*All models have their main.tf, outputs.tf and variables.tf defined in them*
 
 ## Environments
 
