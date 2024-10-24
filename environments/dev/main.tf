@@ -107,4 +107,22 @@ module "s3_bucket" {
 #   cooldown            = 300
 # }
 
+# Call the CloudFront module
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "${var.environment}-my-bucket"
+  
+  tags = {
+    Name        = "${var.environment}-bucket"
+    Environment = var.environment
+  }
+}
+
+module "cloudfront" {
+  source              = "../../modules/cloudfront"
+  environment         = var.environment
+  origin_domain_name  = aws_s3_bucket.my_bucket.bucket_regional_domain_name  # Replace with your S3 bucket's domain
+  acm_certificate_arn = "arn:aws:acm:region:account-id:certificate/certificate-id"  # Replace with your certificate ARN
+  s3_bucket_name      = aws_s3_bucket.my_bucket.bucket
+  s3_bucket_arn       = aws_s3_bucket.my_bucket.arn
+}
 
