@@ -13,6 +13,7 @@ terraform-project/
 │       └── variables.tf
 └── modules/
     ├── autoscaling/
+    ├── cloudfront/
     ├── ec2/
     ├── load_balancer/
     │   ├── alb/
