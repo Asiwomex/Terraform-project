@@ -1,5 +1,5 @@
 ## Do this
-when calling the module, you need to uncomment the s3 module also, and you need an ACM ARN from us-east-1 also, this should be replaced with the placeholder in the dev/main.tf when calling the cloudfront module
+when calling the module, you need to uncomment the s3 module also, and you need an ACM (Amazon Certificate Manager) ARN from us-east-1 also, this should be replaced with the placeholder in the dev/main.tf when calling the cloudfront module
 
 ### Example of a Correct ACM Certificate ARN Format:
 ```text
