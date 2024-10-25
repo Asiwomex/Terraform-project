@@ -3,7 +3,9 @@ provider "aws" {
   region = "us-east-2" # Change to your desired AWS region
 }
 
-# # Call VPC
+
+# # Call VPC module
+
 # module "vpc" {
 #   source              = "../../modules/vpc"
 #   vpc_cidr            = "10.0.0.0/16"
@@ -14,7 +16,9 @@ provider "aws" {
 #   enable_flow_logs    = false
 # }
 
+
 # # Call the Security Group module
+
 # module "security_group" {
 #   source              = "../../modules/security_group"
 #   vpc_id             = module.vpc.vpc_id  # Reference the VPC ID from the VPC module
@@ -26,7 +30,9 @@ provider "aws" {
 #   data_ports_cidr_blocks = ["0.0.0.0/0"]
 # }
 
+
 # # Call EC2
+
 # module "ubuntu_instance" {
 #   source           = "../../modules/ec2"
 #   ami              = "ami-0ea3c35c5c3284d82" # Replace with a valid Ubuntu LTS AMI ID
@@ -36,7 +42,9 @@ provider "aws" {
 #   instance_name    = "dev-ubuntu-instance"
 # }
 
+
 # Call the S3 module
+
 module "s3_bucket" {
   source        = "../../modules/s3"
   bucket_name   = "avudzigborgborvor"  # Change to a unique bucket name
@@ -44,7 +52,10 @@ module "s3_bucket" {
   environment   = "dev"         # Change to true if you want logging enabled
 }
 
+
+
 # # Call the ALB module
+
 # module "alb" {
 #   source = "../../modules/load_balancer/alb"
 
@@ -66,7 +77,9 @@ module "s3_bucket" {
 #   listener_protocol         = "HTTP"  # Specify the listener protocol
 # }
 
+
 # # Call the NLB module
+
 # module "nlb" {
 #   source = "../../modules/load_balancer/nlb"
 
@@ -88,7 +101,9 @@ module "s3_bucket" {
 #   listener_protocol         = "TCP"  # Specify the listener protocol
 # }
 
+
 # # Call the Autoscaling module
+
 # module "autoscaling" {
 #   source              = "../../modules/autoscaling"
 #   environment         = "dev"
@@ -107,22 +122,22 @@ module "s3_bucket" {
 #   cooldown            = 300
 # }
 
-# Call the CloudFront module
-resource "aws_s3_bucket" "my_bucket" {
-  bucket = "${var.environment}-my-bucket"
-  
-  tags = {
-    Name        = "${var.environment}-bucket"
-    Environment = var.environment
-  }
-}
 
-module "cloudfront" {
-  source              = "../../modules/cloudfront"
-  environment         = var.environment
-  origin_domain_name  = aws_s3_bucket.my_bucket.bucket_regional_domain_name  # Replace with your S3 bucket's domain
-  acm_certificate_arn = "arn:aws:acm:region:account-id:certificate/certificate-id"  # Replace with your certificate ARN
-  s3_bucket_name      = aws_s3_bucket.my_bucket.bucket
-  s3_bucket_arn       = aws_s3_bucket.my_bucket.arn
-}
+# # Call the CloudFront module
+# resource "aws_s3_bucket" "my_bucket" {
+#   bucket = "${var.environment}-my-bucket"
+  
+#   tags = {
+#     Name        = "${var.environment}-bucket"
+#     Environment = var.environment
+#   }
+# }
+# module "cloudfront" {
+#   source              = "../../modules/cloudfront"
+#   environment         = var.environment
+#   origin_domain_name  = aws_s3_bucket.my_bucket.bucket_regional_domain_name  # Replace with your S3 bucket's domain
+#   acm_certificate_arn = "arn:aws:acm:region:account-id:certificate/certificate-id"  # Replace with your certificate ARN
+#   s3_bucket_name      = aws_s3_bucket.my_bucket.bucket
+#   s3_bucket_arn       = aws_s3_bucket.my_bucket.arn
+# }
 
