@@ -5,7 +5,7 @@ This project, `terraform-project`, is designed to manage and deploy infrastructu
 ## Prerequisites:
 1.  AWS Account: Ensure you have an AWS account and the necessary access credentials (AWS Access Key and Secret Key).
 2.  Terraform Installed: Make sure Terraform is installed on your local machine.
-    - [official website](https://www.terraform.io/downloads)
+    - Visit the Terraform[official website](https://www.terraform.io/downloads) for installation
     - Check and Confirm installation of terraform and terraform version with `terraform -v`.
 3.  AWS CLI Installed: Optionally, install AWS CLI for quick verification of resources.
 
@@ -147,6 +147,6 @@ Feel free to contribute to this project by adding new modules, enhancing existin
 ---
 
 - **Terraform Project** - Version 1.0.0
-- https://asiwomex.github.io/
+- [My Portfolio](https://asiwomex.github.io/)
 ```
 
