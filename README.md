@@ -2,6 +2,14 @@
 
 This project, `terraform-project`, is designed to manage and deploy infrastructure to AWS using Terraform. The project is organized into environments and modules, making it reusable, maintainable, and scalable. Below is the structure and description of each component in the project.
 
+## Prerequisites:
+1.  AWS Account: Ensure you have an AWS account and the necessary access credentials (AWS Access Key and Secret Key).
+2.  Terraform Installed: Make sure Terraform is installed on your local machine.
+    - [official website](https://www.terraform.io/downloads)
+    - Check and Confirm installation of terraform and terraform version with `terraform -v`.
+3.  AWS CLI Installed: Optionally, install AWS CLI for quick verification of resources.
+
+
 ## Project Structure
 
 The project structure is exactly as seen in the project, haha, funny
@@ -40,7 +48,17 @@ The `modules` directory contains reusable infrastructure modules that are used t
   - `variables.tf`: Contains inputs for configuring ASG properties such as instance type, scaling policies, and more.
   - `outputs.tf`: Exports essential information like the ASG name and its configuration.
 
-### 2. EC2
+
+### 2. CloudFront
+
+- **Purpose**: Configures an Amazon CloudFront distribution for serving content from an S3 bucket or other origin with caching and SSL support.
+- **Files**:
+  - `main.tf`: Defines the CloudFront distribution settings, origin configuration, cache behaviors, and SSL certificate.
+  - `variables.tf`: Manages configuration options such as origin domain name, ACM certificate ARN, and default TTL.
+  - `outputs.tf`: Outputs CloudFront details like distribution ID and domain name.
+
+
+### 3. EC2
 
 - **Purpose**: Provisions EC2 instances based on specified AMIs and instance types.
 - **Files**:
@@ -48,7 +66,7 @@ The `modules` directory contains reusable infrastructure modules that are used t
   - `variables.tf`: Contains variables like instance type, AMI ID, and security group.
   - `outputs.tf`: Exports the instance ID, IP address, and other key details.
 
-### 3. Load Balancer
+### 4. Load Balancer
 
 - **alb (Application Load Balancer)**:
   - **Purpose**: Sets up an ALB for routing traffic to application servers.
@@ -64,7 +82,7 @@ The `modules` directory contains reusable infrastructure modules that are used t
     - `variables.tf`: Holds NLB configuration options like ports and protocols.
     - `outputs.tf`: Outputs NLB details such as DNS name and ARN.
 
-### 4. S3
+### 5. S3
 
 - **Purpose**: Manages S3 buckets for storage solutions.
 - **Files**:
@@ -72,7 +90,7 @@ The `modules` directory contains reusable infrastructure modules that are used t
   - `variables.tf`: Contains input variables for S3 settings such as bucket name and access control.
   - `outputs.tf`: Provides details like the bucket name and ARN.
 
-### 5. Security Groups
+### 6. Security Groups
 
 - **Purpose**: Manages security groups for controlling inbound and outbound traffic.
 - **Files**:
@@ -80,7 +98,7 @@ The `modules` directory contains reusable infrastructure modules that are used t
   - `variables.tf`: Contains variables for allowed CIDR ranges and port definitions.
   - `outputs.tf`: Outputs security group IDs and rules.
 
-### 6. VPC
+### 7. VPC
 
 - **Purpose**: Manages the creation and configuration of a VPC, including subnets, route tables, and internet gateways.
 - **Files**:
@@ -90,25 +108,27 @@ The `modules` directory contains reusable infrastructure modules that are used t
 
 ## Usage
 
-1. **Install Terraform**: Make sure Terraform is installed on your system. You can download it from the [official website](https://www.terraform.io/downloads).
+1. **Clone This Repository**: Clone this repository and use.
 
-2. **Initialize the environment**:
+2. **Pay critical attention to Comments**: Kindly please pay critical attention to the comments attached to lines of codes, you may have to use resources based on your aws configuration or region.
+
+3. **Initialize the environment**:
    Navigate to the `environments/dev` directory and run:
    ```bash
    terraform init
    ```
 
-3. **Plan the infrastructure**:
+4. **Plan the infrastructure**:
    ```bash
    terraform plan
    ```
 
-4. **Apply the changes**:
+5. **Apply the changes**:
    ```bash
    terraform apply
    ```
 
-5. **Destroy the infrastructure**:
+6. **Destroy the infrastructure**:
    When you want to tear down the resources:
    ```bash
    terraform destroy
@@ -126,7 +146,7 @@ Feel free to contribute to this project by adding new modules, enhancing existin
 
 ---
 
-**Terraform Project** - Version 1.0.0
+- **Terraform Project** - Version 1.0.0
+- https://asiwomex.github.io/
 ```
 
-This `README.md` provides a comprehensive overview of the project structure, usage, and instructions. Let me know if you need any further customization!
